@@ -1,0 +1,70 @@
+{
+  "name": "web-fast-template",
+  "private": true,
+  "version": "1.0.6",
+  "devDependencies": {
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
+    "@emotion/eslint-plugin": "^11.5.0",
+    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "auto-changelog": "^2.3.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "19.0.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^15.0.0",
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-import-resolver-webpack": "^0.13.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "scripts": {
+    "start": "lerna run start --stream",
+    "build": "lerna run build --stream",
+    "server:prod": "lerna run server --stream",
+    "server": "lerna run dev --stream",
+    "format": "prettier --write '**/*.ts{,x}'",
+    "lint": "tsc --noEmit && eslint '**/*.ts{,x}'",
+    "prepare": "husky install",
+    "version": "auto-changelog --template changelog-template.hbs"
+  },
+  "lint-staged": {
+    "*.tsx": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './commitlint.js'",
+      "pre-push": "pre-push"
+    }
+  }
+}
